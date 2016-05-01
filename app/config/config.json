@@ -1,0 +1,10 @@
+{
+	"development": {
+		"host": "127.0.0.1",
+		"port": 3306,
+		"username": "hawk_support",
+		"password": "123",
+		"database": "hawk_support",
+		"dialect": "mysql"
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"name": "hawk-support",
+	"version": "0.0.1",
+	"description": "hawk support prototype web application",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/mnogono/hawk-support.git"
+	},
+	"dependencies": {
+		"mysql": "*",
+		"express": "*",
+		"sequelize": "*",
+		"body-parser": "*",
+		"handlebars": "*",
+		"express-handlebars": "*",
+		"body-parser": "*",
+		"jquery": "*",
+		
+	},
+	"license": "MIT",
+	"readby": "no readmy"
+}
