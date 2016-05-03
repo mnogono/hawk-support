@@ -1,0 +1,27 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#create").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/ticket",
+					data: $("#ticket" ).serialize(),
+					success: function() {
+						window.location.assign("/view/tickets");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="ticket" method="post" action="/api/ticket">
+		<label for="name">Ticket Name:</label>
+		<input type="text" id="name" name="ticket[name]" value="" placeholder="ticket name"><br/>
+		<label for="comment">Ticket Comment:</label><br/>
+		<textarea id="comment" name="ticket[comment]" rows="25", cols="120" placeholder="Ticket comment"></textarea><br/>
+		<input id="create" type="button" value="Create Ticket">
+	</form>
+</body>
+</html>

@@ -12,9 +12,105 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
+
+require(__dirname + "/view/template_partials.js")();
+
+var router = express.Router();
+
+router.use(function(req, res, next){
+	console.log("any api action can be hooked here!");
+	next();
+});
+
+router.get("/", function(req, res) {
+	res.json({message: "welcome to hawk-support api"});
+});
+
+//ticket route
+router.route("/ticket")
+	.post(function(req, res){
+		require("./api/ticket/create_ticket")(req, res);
+	})
+	.get(function(req, res){
+		require("./api/ticket/tickets")(req, res);
+	});
+
+router.route("/ticket/:id")
+	.delete(function(req, res){
+		require("./api/ticket/delete_ticket")(req, res);
+	})
+	.put(function(req, res){
+		require("./api/ticket/edit_ticket")(req, res);
+	})
+	.get(function(req, res){
+		require("./api/ticket/ticket")(req, res);
+	});
+
+
+//instrument route
+router.route("/instrument")
+	.post(function(req, res){
+		require("./api/instrument/create_instrument")(req, res);
+	})
+	.get(function(req, res){
+		require("./api/instrument/instruments")(req, res);
+	});
+	
+router.route("/instrument/:id")
+	.delete(function(req, res){
+		require("./api/instrument/delete_instrument")(req, res);
+	})
+	.put(function(req, res){
+		require("./api/instrument/edit_instrument")(req, res);
+	})
+	.get(function(req, res){
+		require("./api/instrument/instrument")(req, res);
+	});
+
+// view route
+	
+var routerView = express.Router();	
+
+// view ticket route
+
+routerView.route("/create_ticket")
+	.get(function(req, res){
+		require("./view/ticket/create_ticket.js")(req, res);
+	});
+
+routerView.route("/edit_ticket/:id")
+	.get(function(req, res){
+		require("./view/ticket/edit_ticket.js")(req, res);
+	});
+	
+routerView.route("/tickets")
+	.get(function(req, res){
+		require("./view/ticket/tickets")(req, res);
+	});
+	
+// view instrument
+
+routerView.route("/create_instrument")
+	.get(function(req, res){
+		require("./view/instrument/create_instrument.js")(req, res);
+	});
+	
+routerView.route("/instruments")
+	.get(function(req, res){
+		require("./view/instrument/instruments.js")(req, res);
+	});
+routerView.route("/edit_instrument/:id")
+	.get(function(req, res){
+		require("./view/instrument/edit_instrument.js")(req, res);
+	});
+	
+app.use("/api", router);
+app.use("/view", routerView);
+
 var fs = require("fs");
 var db = require("./models");
 
+/*
 var dashboard_tickets = require("./pages/dashboard_tickets");
 var create_ticket = require("./pages/create_ticket");
 var post_create_ticket = require("./pages/post_create_ticket");
@@ -25,7 +121,6 @@ app.get("/", function(req, res) {
 		//res.send(data);	
 	});
 });
-
 
 var put_ticket = require("./pages/put_ticket");
 app.put("/put_ticket", function(req, res) {
@@ -48,6 +143,7 @@ app.get("/create_ticket", function(req, res) {
 app.post("/create_ticket", function(req, res) {
 	post_create_ticket(req, res);
 });
+*/
 
 //var dbConfig = require('./db_config.json');
 /*
@@ -101,11 +197,10 @@ var Order = sequelize.define("Order", {
 });
 */
 
-
 db.sequelize
-	.sync({force: true})
+	.sync({force: false})
 	.then(function(err) {
-		console.log("synced...");
+		console.log("db synced...");
 		
 	}, function(err) {
 		console.log("error: ", err);

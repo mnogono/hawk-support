@@ -10,9 +10,9 @@ module.exports = function(sequelize, DataTypes) {
 		underscored: true,
 		classMethods: {
 			associate: function(models) {
-				models.Ticket.hasOne(models.User);
-				models.Ticket.hasOne(models.Instrument);
-				models.Ticket.hasOne(models.Customer);
+				models.Ticket.belongsTo(models.User);
+				models.Ticket.belongsTo(models.Instrument);
+				models.Ticket.belongsTo(models.Customer);
 			}
 		}
 	});	

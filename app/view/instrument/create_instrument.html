@@ -1,0 +1,31 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#create").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/instrument",
+					data: $("#instrument" ).serialize(),
+					success: function() {
+						window.location.assign("/view/instruments");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="instrument" method="post" action="/api/instrument">
+		<label for="serial_number">Serial Number:</label><br/>
+		<input type="text" id="serial_number" name="instrument[serial_number]" value="" placeholder="Serial Number"><br/>
+		<label for="computer_serial_number">Computer S/N:</label><br/>
+		<input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="" placeholder="Computer S/N"><br/>
+		<label for="monitor_serial_number">Monitor S/N:</label><br/>
+		<input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="" placeholder="Monitor S/N"><br/>
+		<label for="ups_serial_number">UPS S/N:</label><br/>
+		<input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="" placeholder="UPS S/N"><br/>
+		<input id="create" type="button" value="Create Instrument">
+	</form>
+</body>
+</html>

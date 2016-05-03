@@ -1,0 +1,32 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#update").click(function(){
+				$.ajax({
+					method: "PUT",
+					url: "/api/instrument/{{id}}",
+					data: $("#instrument" ).serialize(),
+					success: function() {
+						window.location.assign("/view/instruments");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="instrument" method="post" action="/api/instrument">
+		<input type="hidden" value="{{id}}"/>
+		<label for="serial_number">Serial Number:</label><br/>
+		<input type="text" id="serial_number" name="instrument[serial_number]" value="{{serial_number}}" placeholder="Serial Number"><br/>
+		<label for="computer_serial_number">Computer S/N:</label><br/>
+		<input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="{{computer_serial_number}}" placeholder="Computer S/N"><br/>
+		<label for="monitor_serial_number">Monitor S/N:</label><br/>
+		<input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="{{monitor_serial_number}}" placeholder="Monitor S/N"><br/>
+		<label for="ups_serial_number">UPS S/N:</label><br/>
+		<input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="{{ups_serial_number}}" placeholder="UPS S/N"><br/>
+		<input id="update" type="button" value="Save Instrument">
+	</form>
+</body>
+</html>

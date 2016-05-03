@@ -1,0 +1,60 @@
+<html>
+{{> head}}
+<body>
+{{> navigate}}
+<script></script>
+<script>
+	$(document).ready(function() {
+		$("#tickets").DataTable();
+	
+		$(".delete").click(function(e){
+			$.ajax({
+				url: "/api/ticket/"+$(this).attr("id"),
+				type: "DELETE",
+				success: function(result) {
+					alert("delete success");
+					location.reload();
+				}
+			});
+			return false;
+		});
+	});
+</script>
+<table id="tickets" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>Created Date</th>
+			<th>Updater Date</th>
+			<th>Name</th>
+			<th>Comment</th>
+			<th>HAWK Instrument</th>
+			<th><!--edit--></th>
+			<th><!--delete--></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#tickets}}
+			<tr>
+				<td>{{created_at}}</td>
+				<td>{{updated_at}}</td>
+				<td>{{name}}</td>
+				<td>{{comment}}</td>
+				<td></td>
+				<td><a class="edit" href="/view/edit_ticket/{{id}}">edit</a></td>
+				<td><a class="delete" href="" id={{id}}>delete</a></td>
+			</tr>
+		{{/tickets}}
+	</tbody>
+	<tfoot>
+		<th>Created Date</th>
+		<th>Updater Date</th>
+		<th>Name</th>
+		<th>Comment</th>
+		<th>HAWK Instrument</th>
+		<th><!--edit--></th>
+		<th><!--delete--></th>
+	</tfoot>
+</table>
+<a href="/view/create_ticket">Create Ticket</a>
+</body>
+</html>

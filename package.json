@@ -15,6 +15,7 @@
 		"express-handlebars": "*",
 		"body-parser": "*",
 		"jquery": "*",
+		"merge": "*"
 		
 	},
 	"license": "MIT",

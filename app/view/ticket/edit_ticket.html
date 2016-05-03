@@ -1,0 +1,37 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#update").click(function(){
+				$.ajax({
+					method: "PUT",
+					url: "/api/ticket/{{ticket.id}}",
+					data: $("#ticket" ).serialize(),
+					success: function() {
+						window.location.assign("/view/tickets");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="ticket" method="post" action="/api/ticket">
+		<label for="name">Ticket Name:</label>
+		<input type="text" id="name" name="ticket[name]" value="{{ticket.name}}" placeholder="ticket name"><br/>
+		<label for="comment">Ticket Comment:</label><br/>
+		<textarea id="comment" name="ticket[comment]" rows="25", cols="120" placeholder="Ticket comment">{{ticket.comment}}</textarea><br/>
+		<label for="instrument_id">Instrument</label><br/>
+		<select id="instrument_id" name="ticket[instrument_id]">
+			{{#select_options instruments "serial_number" ticket.instrument_id}}
+			{{/select_options}}
+		</select><br/>
+		<label for="customer_id">Customer</label>
+		<select id="customer_id" name="ticket[customer_id]">
+			{{#select_options customers "name" ticket.customer_id}}
+			{{/select_options}}
+		</select><br/>		
+		<input id="update" type="button" value="Save Ticket">
+	</form>
+</body>
+</html>
