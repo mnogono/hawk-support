@@ -26,11 +26,6 @@
 			{{#select_options instruments "serial_number" ticket.instrument_id}}
 			{{/select_options}}
 		</select><br/>
-		<label for="customer_id">Customer</label>
-		<select id="customer_id" name="ticket[customer_id]">
-			{{#select_options customers "name" ticket.customer_id}}
-			{{/select_options}}
-		</select><br/>		
 		<input id="update" type="button" value="Save Ticket">
 	</form>
 </body>

@@ -16,14 +16,18 @@ app.use(bodyParser.urlencoded({
 require(__dirname + "/view/template_partials.js")();
 
 var router = express.Router();
-
+/*
 router.use(function(req, res, next){
 	console.log("any api action can be hooked here!");
 	next();
 });
-
+*/
 router.get("/", function(req, res) {
-	res.json({message: "welcome to hawk-support api"});
+	//res.json({message: "welcome to hawk-support api"});
+	res.writeHeader(302, {
+		'Location': "/view/tickets"
+	});
+	res.end();
 });
 
 //ticket route

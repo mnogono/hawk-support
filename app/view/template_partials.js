@@ -11,9 +11,6 @@ module.exports = function(callback){
 			}
 			option.push(">", records[i][property], "</option>");
 			options.push(option.join(""));
-			
-			//console.log(JSON.stringify(options));
-			//options.push("<option value=\""+records[i].id+"\">"+records[i][property]+"</options>");
 		}
 		return options.join("");
 	});
