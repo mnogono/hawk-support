@@ -25,29 +25,29 @@ router.use(function(req, res, next){
 router.get("/", function(req, res) {
 	//res.json({message: "welcome to hawk-support api"});
 	res.writeHeader(302, {
-		'Location': "/view/tickets"
+		'Location': "/view/support_logs"
 	});
 	res.end();
 });
 
-//ticket route
-router.route("/ticket")
+//support_log route
+router.route("/support_log")
 	.post(function(req, res){
-		require("./api/ticket/create_ticket")(req, res);
+		require("./api/support_log/create_support_log")(req, res);
 	})
 	.get(function(req, res){
-		require("./api/ticket/tickets")(req, res);
+		require("./api/support_log/support_logs")(req, res);
 	});
 
-router.route("/ticket/:id")
+router.route("/support_log/:id")
 	.delete(function(req, res){
-		require("./api/ticket/delete_ticket")(req, res);
+		require("./api/support_log/delete_support_log")(req, res);
 	})
 	.put(function(req, res){
-		require("./api/ticket/edit_ticket")(req, res);
+		require("./api/support_log/edit_support_log")(req, res);
 	})
 	.get(function(req, res){
-		require("./api/ticket/ticket")(req, res);
+		require("./api/support_log/support_log")(req, res);
 	});
 
 
@@ -75,21 +75,21 @@ router.route("/instrument/:id")
 	
 var routerView = express.Router();	
 
-// view ticket route
+// view support_log route
 
-routerView.route("/create_ticket")
+routerView.route("/create_support_log")
 	.get(function(req, res){
-		require("./view/ticket/create_ticket.js")(req, res);
+		require("./view/support_log/create_support_log.js")(req, res);
 	});
 
-routerView.route("/edit_ticket/:id")
+routerView.route("/edit_support_log/:id")
 	.get(function(req, res){
-		require("./view/ticket/edit_ticket.js")(req, res);
+		require("./view/support_log/edit_support_log.js")(req, res);
 	});
 	
-routerView.route("/tickets")
+routerView.route("/support_logs")
 	.get(function(req, res){
-		require("./view/ticket/tickets")(req, res);
+		require("./view/support_log/support_logs")(req, res);
 	});
 	
 // view instrument
@@ -114,93 +114,6 @@ app.use("/view", routerView);
 var fs = require("fs");
 var db = require("./models");
 
-/*
-var dashboard_tickets = require("./pages/dashboard_tickets");
-var create_ticket = require("./pages/create_ticket");
-var post_create_ticket = require("./pages/post_create_ticket");
-
-app.get("/", function(req, res) {
-	db.Ticket.findAll().then(function(data) {
-		
-		//res.send(data);	
-	});
-});
-
-var put_ticket = require("./pages/put_ticket");
-app.put("/put_ticket", function(req, res) {
-	put_ticket(req, res);
-});
-
-var post_edit_ticket = require("./pages/post_edit_ticket");
-app.post("/post_edit_ticket", function(req, res) {
-	post_edit_ticket(req, res);
-});
-
-app.get("/dashboard_tickets", function(req, res) {
-	dashboard_tickets(req, res);
-});
-
-app.get("/create_ticket", function(req, res) {
-	create_ticket(req, res);
-});
-
-app.post("/create_ticket", function(req, res) {
-	post_create_ticket(req, res);
-});
-*/
-
-//var dbConfig = require('./db_config.json');
-/*
-var connection = mysql.createConnection(dbConfig);
-connection.connect();
-*/
-/*
-app.get("/", function(req, res) {
-	
-	connection.query("SELECT * from user", function(err, rows, fields) {
-		if (!err) {
-			console.log("The solution is: ", rows);
-		} else {
-			console.log("Error while performing query.");
-		}
-		res.send("Hello World");
-	});
-	//connection.end();
-});
-*/
-//console.log(dbConfig);
-//debugger;
-//create models
-/*
-var Sequelize = require("sequelize");
-var sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
-	dialect: "mysql",
-	port: dbConfig.port
-});
-*/
-/*
-sequelize
-	.authenticate()
-	.then(function(err) {
-		console.log("Connection ok");
-	}, function(err) {
-		console.log("unable to connect err: ", err);
-	});
-
-*/
-//order model
-/*
-var Order = sequelize.define("Order", {
-	name: {type: Sequelize.STRING},
-	ship_date: {type: Sequelize.DATE},
-	cost: {type: Sequelize.FLOAT},
-	title: {type: Sequelize.STRING}
-}, {
-	paranoid: false,
-	underscored: true
-});
-*/
-
 db.sequelize
 	.sync({force: false})
 	.then(function(err) {
@@ -210,17 +123,4 @@ db.sequelize
 		console.log("error: ", err);
 	});
 
-	/*
-app.get("/customers", function(req, res) {
-	var customers = db.Customer.findAll().then(function(customer) {
-		res.send(customer);
-	});
-	
-});
-*/
-	
-//module.exports = {
-//	"server": app,
-//	"db": db
-//}
 module.exports = app;
