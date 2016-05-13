@@ -1,0 +1,169 @@
+<html>
+<head>
+<script type="text/javascript" src="../public/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="../public/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="../public/DataTables/datatables.min.js"></script>
+<script type="text/javascript" src="../public/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../public/js/jquery-ui-1.11.4/jquery-ui.min.css"/>
+<link rel="stylesheet" type="text/css" href="../public/js/jquery-ui-1.11.4/jquery-ui.theme.min.css"/>
+<link rel="stylesheet" type="text/css" href="../public/js/jquery-ui-1.11.4/jquery-ui.structure.min.css"/>
+</head>
+<body>
+<script>
+	$(document).ready(function(){
+		var tableInstruments = $("#example").DataTable();
+		var tableSupportLogs = $("#table-support-logs").DataTable();
+		
+		$("#example tbody").on("click", "tr", function(){
+			if ($(this).hasClass("selected")) {
+				$(this).removeClass("selected");
+			} else {
+				tableInstruments.$("tr.selected").removeClass("selected");
+				$(this).addClass("selected");
+			}
+		});
+		
+		$("#tabs").tabs();
+		
+		$("a.like-button").button();
+	});
+</script>
+
+<a class="like-button" href="#dashboard">Dashboard</a>
+<a class="like-button" href="#instruments">Instruments</a>
+<a class="like-button" href="#users">Users</a>
+<a class="like-button" href="#customers">Customers</a>
+
+<table id="example" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>Instrument</th>
+			<th>Customer</th>
+			<th>Repair Logs</th>
+			<th>Support Logs</th>
+			<th>HAWK Version</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="#">HAWK1001</a></td>
+			<td><a href="#">Aramco</a></td>
+			<td><a href="#">10</a></td>
+			<td><a href="#">5</a></td>
+			<td><a href="#">6210</a></td>
+		</tr>
+		<tr>
+			<td><a href="#">HAWK1002</a></td>
+			<td><a href="#">Aramco</a></td>
+			<td><a href="#">10</a></td>
+			<td><a href="#">5</a></td>
+			<td><a href="#">6120</a></td>
+		</tr>
+		<tr>
+			<td><a href="#">HAWK1003</a></td>
+			<td><a href="#">Aramco</a></td>
+			<td><a href="#">10</a></td>
+			<td><a href="#">5</a></td>
+			<td><a href="#">3120</a></td>
+		</tr>		
+	</tbody>
+	<tfoot>
+		<tr>
+			<th>Instrument</th>
+			<th>Customer</th>
+			<th>Repair Logs</th>
+			<th>Support Logs</th>
+			<th>HAWK Version</th>
+		</tr>
+	</tfoot>
+</table>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#details">Details</a></li>
+		<li><a href="#support-logs">Repair Logs</a></li>
+		<li><a href="#repair-logs">Support Logs</a></li>
+	</ul>
+	<div id="details">
+		<table style="display:inline">
+			<caption>Instrument</caption>
+			<tbody>
+				<tr>
+					<td>S/N</td>
+					<td>HAWK1001</td>
+				</tr>
+				<tr>
+					<td>Monitor S/N</td>
+					<td>SAMSUNG 102</td>
+				</tr>
+				<tr>
+					<td>UPS S/N</td>
+					<td>IDS 332</td>
+				</tr>				
+			</tbody>
+		</table>
+		
+		<table style="display:inline">
+			<caption>Customer</caption>
+			<tbody>
+				<tr>
+					<td>Name</td>
+					<td>Aramco</td>
+				</tr>
+				<tr>
+					<td>Skype</td>
+					<td>aramco.service</td>
+				</tr>
+				<tr>
+					<td>email</td>
+					<td>aramco@support.com</td>
+				</tr>				
+			</tbody>
+		</table>		
+	</div>
+	<div id="support-logs">
+		<table id="table-support-logs">
+			<thead>
+				<tr>
+					<th>Created</th>
+					<th>Name</th>
+					<th>Status</th>
+					<th>Description</th>
+					<th>Assignee</th>
+					<th>Reported</th>
+					<th><!-- edit --> </th>
+					<th><!-- delete --> </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>2016-01-01</td>
+					<td>Flow controls flue</td>
+					<td>Open</td>
+					<td>Flow controls was corrupted</td>
+					<td>Jared</td>
+					<td>Dawid</td>
+					<td><a href="#">edit</a></td>
+					<td><a href="#">delete</a></td>
+				</tr>
+				<tr>
+					<td>2016-01-02</td>
+					<td>FID controls flue</td>
+					<td>Open</td>
+					<td>FID controls was corrupted</td>
+					<td>Jared</td>
+					<td>Dawid</td>
+					<td><a href="#">edit</a></td>
+					<td><a href="#">delete</a></td>
+				</tr>				
+			</tbody>
+		</table>
+		<a href="#">Create Support Log</a>
+	</div>
+	<div id="repair-logs">
+		<a href="#">Create Repair Log</a>
+	</div>
+</div>
+
+</body>
+</html>
