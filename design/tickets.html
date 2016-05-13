@@ -1,9 +1,15 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="../public/css/datatables.css"/>
-<script type="text/javascript" src="../public/js/datatables.js"></script>
+<script type="text/javascript" src="../public/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="../public/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="../public/DataTables/datatables.min.js"></script>
 </head>
 <body>
+<script>
+	$(document).ready(function(){
+		$("#example").DataTable();
+	});
+</script>
 <table id="example" class="display" cellspacing="0" width="100%">
 	<thead>
 		<tr>
