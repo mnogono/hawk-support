@@ -6,7 +6,7 @@ module.exports = function(req, res) {
 	var data = req.body.customer;
 
 	db.Customer.findById(id).then(function(customer){
-		customer = merge(instrument, data);
+		customer = merge(customer, data);
 		customer.save();
 		res.send({code: 0});
 	});

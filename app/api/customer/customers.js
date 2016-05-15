@@ -1,7 +1,9 @@
 var db = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
-	db.Customer.findAll().then(function(instruments) {
-		res.send(instruments);
+	console.log("customers...");
+	
+	db.Customer.findAll().then(function(customers) {
+		res.send(customers);
 	});
 }

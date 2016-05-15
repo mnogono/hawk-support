@@ -4,28 +4,103 @@
 	{{> navigate}}
 	<script>
 		$(document).ready(function(){
+			$("#users").DataTable();
+		
 			$("#update").click(function(){
 				$.ajax({
 					method: "PUT",
-					url: "/api/instrument/{{id}}",
+					url: "/api/instrument/{{instrument.id}}",
 					data: $("#instrument" ).serialize(),
 					success: function() {
 						window.location.assign("/view/instruments");
 					}
 				});
 			});
+			
+			$("#assign-new-user").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/user_instrument",
+					data: {
+						user_id: $("#user").val(),
+						instrument_id: {{instrument.id}}
+					},
+					success: function() {
+						window.location.assign("/view/instruments");
+					}
+				})
+			});
+			
+			$(".remove-user").click(function(){
+				$.ajax({
+					method: "DELETE",
+					url: "/api/user_instrument/"+$(this).attr("id"),
+					success: function() {
+						window.location.assign("/view/instruments");
+					}					
+				})
+			});
 		});
 	</script>
 	<form id="instrument" method="post" action="/api/instrument">
-		<input type="hidden" value="{{id}}"/>
+		<input type="hidden" value="{{instrument.id}}"/>
 		<label for="serial_number">Serial Number:</label><br/>
-		<input type="text" id="serial_number" name="instrument[serial_number]" value="{{serial_number}}" placeholder="Serial Number"><br/>
+		<input type="text" id="serial_number" name="instrument[serial_number]" value="{{instrument.serial_number}}" placeholder="Serial Number"><br/>
 		<label for="computer_serial_number">Computer S/N:</label><br/>
-		<input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="{{computer_serial_number}}" placeholder="Computer S/N"><br/>
+		<input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="{{instrument.computer_serial_number}}" placeholder="Computer S/N"><br/>
 		<label for="monitor_serial_number">Monitor S/N:</label><br/>
-		<input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="{{monitor_serial_number}}" placeholder="Monitor S/N"><br/>
+		<input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="{{instrument.monitor_serial_number}}" placeholder="Monitor S/N"><br/>
 		<label for="ups_serial_number">UPS S/N:</label><br/>
-		<input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="{{ups_serial_number}}" placeholder="UPS S/N"><br/>
+		<input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="{{instrument.ups_serial_number}}" placeholder="UPS S/N"><br/>
+
+		<label for="ship_date">Ship Date:</label><br/>
+		<input type="date" id="ship_date" name="instrument[ship_date]" value="{{date_format instrument.ship_date}}" placeholder="2015-12-01"><br/>
+
+		<label for="install_date">Install Date</label><br/>
+		<input type="date" id="install_date" name="instrument[install_date]" value="{{date_format instrument.install_date}}" placeholder="2015-12-01"><br/>
+
+		<label for="customer">Customer</label><br/>
+		<select id="customer" name="instrument[customer_id]">
+			{{#customers}}
+				<option value="{{id}}">{{name}}</option>
+			{{/customers}}
+		</select>
+
+		<br/>
+		<br/>
+		<br/>
+		
+		<table id="users" class="display" cellspacing="0" width="100%">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th><!--delete--></th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#instrument_users}}
+					<tr>
+						<td>{{name}}</td>
+						<td><a class="remove-user" href="" id={{id}}>remove</a></td>
+					</tr>
+				{{/instrument_users}}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Name</th>
+					<th><!--delete--></th>
+				</tr>
+			</tfoot>
+		</table>
+		<select id="user">
+			{{#users}}
+				<option value="{{id}}">{{name}}</option>
+			{{/users}}
+		</select>
+		<input id="assign-new-user" type="button" value="Assign New User"/>
+
+		<br/>
+		
 		<input id="update" type="button" value="Save Instrument">
 	</form>
 </body>
