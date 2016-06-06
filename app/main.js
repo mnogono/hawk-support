@@ -17,22 +17,15 @@ require(__dirname + "/view/template_partials.js")();
 
 require(__dirname + "/view/handlebar_helpers.js");
 
-var routerRedirect = express.Router();
-
-routerRedirect.get("/", function(req, res){
-	res.writeHeader(302, {
-		"Location": "/view/dashboard"
-	});
-	res.end();
-});
-
 var router = express.Router();
+
 /*
 router.use(function(req, res, next){
 	console.log("any api action can be hooked here!");
 	next();
 });
 */
+/*
 router.get("/", function(req, res) {
 	//res.json({message: "welcome to hawk-support api"});
 	res.writeHeader(302, {
@@ -40,16 +33,16 @@ router.get("/", function(req, res) {
 	});
 	res.end();
 });
-
+*/
 //repair log
-
+/*
 router.route("/repair_log")
 	.post(function(req, res){
 		require("./api/repair_log/create_repair_log")(req, res);
 	});
-
+*/
 //user_instrument
-
+/*
 router.route("/user_instrument")
 	.post(function(req, res){
 		require("./api/user_instrument/create_user_instrument")(req, res);
@@ -58,8 +51,10 @@ router.route("/user_instrument/:id")
 	.delete(function(req, res){
 		require("./api/user_instrument/delete_user_instrument")(req, res);
 	});
+*/
 
 //support_log route
+/*
 router.route("/support_log")
 	.post(function(req, res){
 		require("./api/support_log/create_support_log")(req, res);
@@ -78,9 +73,10 @@ router.route("/support_log/:id")
 	.get(function(req, res){
 		require("./api/support_log/support_log")(req, res);
 	});
-
+*/
 
 //instrument route
+/*
 router.route("/instrument")
 	.post(function(req, res){
 		require("./api/instrument/create_instrument")(req, res);
@@ -109,9 +105,11 @@ router.route("/instrument/:id/support_logs")
     .get(function(req, res){
         require("./api/instrument/instrument_support_logs")(req, res);
     });
+*/
 
 //customer route
 
+/*
 router.route("/customer")
 	.post(function(req, res){
 		require("./api/customer/create_customer")(req, res);
@@ -130,10 +128,11 @@ router.route("/customer/:id")
 	.get(function(req, res){
 		require("./api/customer/customer")(req, res);
 	});
+*/
 
 //user route
 
-router.route("/user")
+/*router.route("/user")
 	.post(function(req, res){
 		require("./api/user/create_user")(req, res);
 	})
@@ -150,15 +149,15 @@ router.route("/user/:id")
 	})
 	.get(function(req, res){
 		require("./api/user/user")(req, res);
-	});
+	});*/
 
 // view route
 
-var routerView = express.Router();
+//var routerView = express.Router();
 
 // view support_log route
 
-routerView.route("/create_support_log")
+/*routerView.route("/create_support_log")
 	.get(function(req, res){
 		require("./view/support_log/create_support_log.js")(req, res);
 	});
@@ -171,10 +170,11 @@ routerView.route("/edit_support_log/:id")
 routerView.route("/support_logs")
 	.get(function(req, res){
 		require("./view/support_log/support_logs")(req, res);
-	});
+	});*/
 
 // view instrument
 
+/*
 routerView.route("/create_instrument")
 	.get(function(req, res){
 		require("./view/instrument/create_instrument.js")(req, res);
@@ -188,10 +188,11 @@ routerView.route("/edit_instrument/:id")
 	.get(function(req, res){
 		require("./view/instrument/edit_instrument.js")(req, res);
 	});
+*/
 
 // view customer
 
-routerView.route("/create_customer")
+/*routerView.route("/create_customer")
 	.get(function(req, res){
 		require("./view/customer/create_customer.js")(req, res);
 	});
@@ -203,11 +204,11 @@ routerView.route("/customers")
 routerView.route("/edit_customer/:id")
 	.get(function(req, res){
 		require("./view/customer/edit_customer.js")(req, res);
-	});
+	});*/
 
 // view user
 
-routerView.route("/create_user")
+/*routerView.route("/create_user")
 	.get(function(req, res){
 		require("./view/user/create_user.js")(req, res);
 	});
@@ -219,10 +220,11 @@ routerView.route("/users")
 routerView.route("/edit_user/:id")
 	.get(function(req, res){
 		require("./view/user/edit_user.js")(req, res);
-	});
+	});*/
 
 // view repair
 
+/*
 routerView.route("/create_repair_log")
 	.get(function(req, res){
 		require("./view/repair_log/create_repair_log.js")(req, res);
@@ -237,20 +239,21 @@ routerView.route("/repair_logs")
 	.get(function(req, res){
 		require("./view/repair_log/repair_logs")(req, res);
 	});
+*/
 
 
 // view dashboard
 
-routerView.route("/dashboard")
+/*routerView.route("/dashboard")
 	.get(function(req, res){
 		require("./view/dashboard/dashboard")(req, res);
-	});
+	});*/
 
-app.use("/", routerRedirect);
-app.use("/api", router);
-app.use("/view", routerView);
+app.use("/", require(__dirname + "/router/router_redirect.js"));
+app.use("/api", require(__dirname + "/router/router_api.js"));
+app.use("/view", require(__dirname + "/router/router_view.js"));
 
-var fs = require("fs");
+//var fs = require("fs");
 var db = require("./models");
 
 db.sequelize
@@ -261,5 +264,19 @@ db.sequelize
 	}, function(err) {
 		console.log("error: ", err);
 	});
+
+/**
+ DROP TABLE IF EXISTS `user_instrument`;
+ DROP TABLE IF EXISTS  `user`;
+ DROP TABLE IF EXISTS  `monitor_model`;
+ DROP TABLE IF EXISTS  `instrument`;
+ DROP TABLE IF EXISTS  `customer`;
+ DROP TABLE IF EXISTS  `computer_model`;
+ DROP TABLE IF EXISTS  `support_log`;
+ DROP TABLE IF EXISTS  `order`;
+ DROP TABLE IF EXISTS  `comment`;
+ DROP TABLE IF EXISTS  `repair_log`;
+
+ */
 
 module.exports = app;
