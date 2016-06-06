@@ -1,0 +1,31 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#create").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/user",
+					data: $("#user" ).serialize(),
+					success: function() {
+						window.location.assign("/view/users");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="user" method="post" action="/api/user">
+		<label for="name">Name:</label><br/>
+		<input type="text" id="name" name="user[name]" value="" placeholder="Name"><br/>
+		<label for="phone">Phone:</label><br/>
+		<input type="text" id="phone" name="user[phone]" value="" placeholder="Phobe Number"><br/>
+		<label for="email">Email:</label><br/>
+		<input type="email" id="email" name="user[email]" value="" placeholder="ivan@ivanov.ru"><br/>
+		<label for="login">Login:</label><br/>
+		<input type="text" id="login" name="user[login]" value="" placeholder="User Login"><br/>
+		<input id="create" type="button" value="Create User">
+	</form>
+</body>
+</html>

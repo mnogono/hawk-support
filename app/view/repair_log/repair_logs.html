@@ -1,0 +1,71 @@
+<html>
+{{> head}}
+<body>
+{{> navigate}}
+<script></script>
+<script>
+	$(document).ready(function() {
+		$("#repair-logs").DataTable();
+
+		$(".delete").click(function(e){
+			$.ajax({
+				url: "/api/repair_log/"+$(this).attr("id"),
+				type: "DELETE",
+				success: function(result) {
+					alert("delete success");
+					location.reload();
+				}
+			});
+			return false;
+		});
+
+		$(".instrument-place-holder").each(function(i, e){
+			$.ajax({
+				url: "/api/instrument/"+$(this).attr("id"),
+				type: "GET",
+				success: function(instrument) {
+					$(this).text(instrument.serial_number);
+				}.bind($(this))
+			});
+		});
+	});
+</script>
+<table id="repair-logs" class="display" cellspacing="0" width="100%">
+	<thead>
+		<th>Created Date</th>
+		<th>Updater Date</th>
+		<th>Name</th>
+		<th>Comment</th>
+		<th>HAWK Instrument</th>
+		<th>Customer</th>
+		<th><!--edit--></th>
+		<th><!--delete--></th>
+	</thead>
+	<tbody>
+		{{#repairLogs}}
+			<tr>
+				<td>{{date_format created_at}}</td>
+				<td>{{date_format updated_at}}</td>
+				<td>{{name}}</td>
+				<td>{{comment}}</td>
+				<td><label class="instrument-place-holder" id={{instrument_id}}>-</label></td>
+				<td></td>
+				<td><a class="edit" href="/view/edit_repair_log/{{id}}">edit</a></td>
+				<td><a class="delete" href="/api/repait_log" id={{id}}>delete</a></td>
+			</tr>
+		{{/repairLogs}}
+	</tbody>
+	<tfoot>
+		<th>Created Date</th>
+		<th>Updater Date</th>
+		<th>Name</th>
+		<th>Comment</th>
+		<th>HAWK Instrument</th>
+		<th>Customer</th>
+		<th><!--edit--></th>
+		<th><!--delete--></th>
+	</tfoot>
+</table>
+<a href="/view/create_repair_log">Create Repair Log</a>
+</body>
+</html>

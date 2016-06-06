@@ -1,0 +1,29 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#create").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/customer",
+					data: $("#customer" ).serialize(),
+					success: function() {
+						window.location.assign("/view/customers");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="customer" method="post" action="/api/customer">
+		<label for="name">Name:</label><br/>
+		<input type="text" id="name" name="customer[name]" value="" placeholder="Name"><br/>
+		<label for="phone">Phone:</label><br/>
+		<input type="text" id="phone" name="customer[phone]" value="" placeholder="Phobe Number"><br/>
+		<label for="email">Email:</label><br/>
+		<input type="email" id="email" name="customer[email]" value="" placeholder="ivan@ivanov.ru"><br/>
+		<input id="create" type="button" value="Create customer">
+	</form>
+</body>
+</html>

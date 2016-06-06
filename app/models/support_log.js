@@ -1,0 +1,21 @@
+"use strict";
+
+module.exports = function(sequelize, DataTypes) {
+	return sequelize.define("SupportLog", {
+		name: {type: DataTypes.STRING},
+		comment: {type: DataTypes.TEXT},
+		status: {type: DataTypes.ENUM("open", "close", "on hold", "in progress")}
+	}, {
+		tableName: "support_log",
+		paranoid: false,
+		underscored: true,
+		classMethods: {
+			associate: function(models) {
+				models.RepairLog.belongsTo(models.User, {as: "reporter"});
+				models.RepairLog.belongsTo(models.User, {as: "assignee"});
+				models.SupportLog.belongsTo(models.Instrument);
+				models.SupportLog.belongsTo(models.Customer);
+			}
+		}
+	});	
+};

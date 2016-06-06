@@ -1,0 +1,30 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#update").click(function(){
+				$.ajax({
+					method: "PUT",
+					url: "/api/customer/{{id}}",
+					data: $("#customer" ).serialize(),
+					success: function() {
+						window.location.assign("/view/customers");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="customer" method="post" action="/api/customer">
+		<input type="hidden" value="{{id}}"/>
+		<label for="name">Name:</label><br/>
+		<input type="text" id="name" name="customer[name]" value="{{name}}" placeholder="Name"><br/>
+		<label for="phone">Phone:</label><br/>
+		<input type="text" id="phone" name="customer[phone]" value="{{phone}}" placeholder="Phone"><br/>
+		<label for="email">Email:</label><br/>
+		<input type="email" id="email" name="customer[email]" value="{{email}}" placeholder="Email"><br/>
+		<input id="update" type="button" value="Save Customer">
+	</form>
+</body>
+</html>

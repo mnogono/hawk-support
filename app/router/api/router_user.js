@@ -19,4 +19,4 @@ module.exports = {
                 require("../../api/user/user")(req, res);
             });
     }
-}
+};

@@ -1,0 +1,32 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#update").click(function(){
+				$.ajax({
+					method: "PUT",
+					url: "/api/support_log/{{supportLog.id}}",
+					data: $("#support-log" ).serialize(),
+					success: function() {
+						window.location.assign("/view/support_logs");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="support-log" action="/api/support_log">
+		<label for="name">Issue Name:</label>
+		<input type="text" id="name" name="supportLog[name]" value="{{supportLog.name}}" placeholder="Issue name"><br/>
+		<label for="comment">Issue Comment:</label><br/>
+		<textarea id="comment" name="supportLog[comment]" rows="25" cols="120" placeholder="Issue comment">{{supportLog.comment}}</textarea><br/>
+		<label for="instrument_id">Instrument</label><br/>
+		<select id="instrument_id" name="supportLog[instrument_id]">
+			{{#select_options instruments "serial_number" supportLog.instrument_id}}
+			{{/select_options}}
+		</select><br/>
+		<input id="update" type="button" value="Save Issue">
+	</form>
+</body>
+</html>

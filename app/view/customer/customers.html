@@ -1,0 +1,55 @@
+<html>
+{{> head}}
+<body>
+{{> navigate}}
+<script>
+	$(document).ready(function() {
+		$("#customers").DataTable();
+	
+		$(".delete").click(function(e){
+			$.ajax({
+				url: "/api/customer/"+$(this).attr("id"),
+				method: "DELETE",
+				success: function(result) {
+					alert("delete success");
+					location.reload();
+				}
+			});
+			return false;
+		});
+	});
+</script>
+<table id="customers" class="display" cellspacing="0" width="100%">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Phone</th>
+			<th>Email</th>
+			<th><!--edit--></th>
+			<th><!--delete--></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#customers}}
+			<tr>
+				<td>{{name}}</td>
+				<td>{{phone}}</td>
+				<td>{{email}}</td>
+				<td><a class="edit" href="/view/edit_customer/{{id}}">edit</a></td>
+				<td><a class="delete" href="" id={{id}}>delete</a></td>
+			</tr>
+		{{/customers}}
+	</tbody>
+	<tfoot>
+		<tr>
+			<th>Name</th>
+			<th>Phone</th>
+			<th>Email</th>
+			<th><!--edit--></th>
+			<th><!--delete--></th>
+		</tr>
+	</tfoot>
+</table>
+<a href="/view/create_customer">Add New Customer</a>
+</body>
+</html>

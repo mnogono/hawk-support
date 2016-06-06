@@ -1,0 +1,33 @@
+<html>
+{{> head}}
+<body>
+	{{> navigate}}
+	<script>
+		$(document).ready(function(){
+			$("#create").click(function(){
+				$.ajax({
+					method: "POST",
+					url: "/api/support_log",
+					data: $("#support-log" ).serialize(),
+					success: function() {
+						window.location.assign("/view/support_logs");
+					}
+				});
+			});
+		});
+	</script>
+	<form id="support-log" method="post" action="/api/support_log">
+		<label for="name">Issu Name:</label>
+		<input type="text" id="name" name="supportLog[name]" value="" placeholder="Issue name"><br/>
+		<label for="comment">Issue Comment:</label><br/>
+		<textarea id="comment" name="supportLog[comment]" rows="25", cols="120" placeholder="Issue comment"></textarea><br/>
+        <select id="instrument" name="supportLog[instrument]">
+            <option value="NULL"></option>
+            {{#instruments}}
+            <option value={{id}}>{{serial_number}}</option>
+            {{/instruments}}
+        </select>
+		<input id="create" type="button" value="Create Issue">
+	</form>
+</body>
+</html>
