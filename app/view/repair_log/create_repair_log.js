@@ -7,12 +7,28 @@ module.exports = function(req, res) {
 		if (err) {
 			return res.send(err.message);
 		}
+
+        var pUsers = db.User.findAll();
+        var pInstruments = db.Instrument.findAll();
+
+        Promise.all([pUsers, pInstruments]).then(function(values) {
+            var template = handlebars.compile(data);
+            var html = template({
+                instruments: values[1],
+                users: values[0]
+            });
+            res.send(html);
+        });
+
+        //db.User.findAll()
+        /*
 		db.Instrument.findAll().then(function(instruments){
 			var template = handlebars.compile(data);
 			var html = template({
 				instruments: instruments
 			});
-			res.send(html);			
+			res.send(html);
 		});
-	});		
-}
+		*/
+	});
+};

@@ -17,7 +17,14 @@
 		});
 	</script>
 	<form id="repair-log" method="post" action="/api/repair_log">
-		<label for="name">Issue Name:</label>
+        <label for="reporter">Reporter</label><br/>
+        <select id="reporter" name="repairLog[reporter]">
+            <option value="NULL"></option>
+            {{#users}}
+                <option value="{{id}}">{{name}}</option>
+            {{/users}}
+        </select><br/>
+		<label for="name">Issue Name:</label><br/>
 		<input type="text" id="name" name="repairLog[name]" value="" placeholder="Issue name"><br/>
 		<label for="comment">Issue Comment:</label><br/>
 		<textarea id="comment" name="repairLog[comment]" rows="25", cols="120" placeholder="Issue comment"></textarea><br/>
@@ -27,7 +34,14 @@
 			{{#instruments}}
 				<option value={{id}}>{{serial_number}}</option>
 			{{/instruments}}
-		</select>
+		</select><br/>
+        <label for="assignee">Assignee</label><br/>
+        <select id="assignee" name="repairLog[assignee]">
+            <option value="NULL"></option>
+            {{#users}}
+                <option value="{{id}}">{{name}}</option>
+            {{/users}}
+        </select><br/>
 		<input id="create" type="button" value="Create Repair Log">
 	</form>
 </body>

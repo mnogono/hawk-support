@@ -34,6 +34,7 @@
 	<thead>
 		<th>Created Date</th>
 		<th>Updater Date</th>
+        <th>Status</th>
 		<th>Name</th>
 		<th>Comment</th>
 		<th>HAWK Instrument</th>
@@ -46,6 +47,7 @@
 			<tr>
 				<td>{{date_format created_at}}</td>
 				<td>{{date_format updated_at}}</td>
+                <td>{{status}}</td>
 				<td>{{name}}</td>
 				<td>{{comment}}</td>
 				<td><label class="instrument-place-holder" id={{instrument_id}}>-</label></td>
@@ -58,6 +60,7 @@
 	<tfoot>
 		<th>Created Date</th>
 		<th>Updater Date</th>
+        <th>Status</th>
 		<th>Name</th>
 		<th>Comment</th>
 		<th>HAWK Instrument</th>
