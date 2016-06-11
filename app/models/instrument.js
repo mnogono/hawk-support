@@ -6,9 +6,17 @@ module.exports = function(sequelize, DataTypes) {
 		computer_serial_number: {type: DataTypes.STRING},
 		monitor_serial_number: {type: DataTypes.STRING},
 		ups_serial_number: {type: DataTypes.STRING},
-		ship_date: {type: DataTypes.DATE},
-		install_date: {type: DataTypes.DATE},
-        warranty_date: {type: DataTypes.DATE}
+        printer_serial_number: {type: DataTypes.STRING},
+        ir_co: {type: DataTypes.STRING},
+        ir_co2: {type: DataTypes.STRING},
+        leak_detector: {type: DataTypes.STRING},
+        flow_meter: {type: DataTypes.STRING},
+        air_system: {type: DataTypes.STRING},
+        balance: {type: DataTypes.STRING},
+        note: {type: DataTypes.TEXT},
+		ship_date: {type: DataTypes.DATE, defaultValue: "1970-01-01 00:00:00"},
+		install_date: {type: DataTypes.DATE, defaultValue: "1970-01-01 00:00:00"},
+        warranty_end_date: {type: DataTypes.DATE, defaultValue: "1970-01-01 00:00:00"}
 	}, {
 		tableName: "instrument",
 		paranoid: false,

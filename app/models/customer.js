@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 	return sequelize.define("Customer", {
 		name: {type: DataTypes.STRING},
 		phone: {type: DataTypes.STRING},
-		email: {type: DataTypes.STRING},
+		email: {type: DataTypes.STRING}
 	}, {
 		tableName: "customer",
 		paranoid: false,
@@ -15,5 +15,5 @@ module.exports = function(sequelize, DataTypes) {
 				models.Customer.hasMany(models.Order);
 			}
 		}
-	});	
+	});
 };

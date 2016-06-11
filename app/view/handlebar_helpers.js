@@ -1,8 +1,13 @@
 var db = require(__dirname + "/../models");
 var handlebars = require('handlebars');
 var dateFormat = require("dateformat");
+var _ = require("underscore");
 
 handlebars.registerHelper("date_format", function(timestamp){
+    if (!timestamp || _.isNaN(timestamp)) {
+        return "";
+    }
+
 	return dateFormat((new Date(timestamp)), "yyyy-mm-dd");
 });
 

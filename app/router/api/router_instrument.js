@@ -9,6 +9,9 @@ module.exports = {
             });
 
         router.route("/instrument/:id")
+            .post(function(req, res){
+                require("../../api/instrument/edit_instrument")(req, res);
+            })
             .delete(function(req, res){
                 require("../../api/instrument/delete_instrument")(req, res);
             })
@@ -29,6 +32,10 @@ module.exports = {
                 require("../../api/instrument/instrument_support_logs")(req, res);
             });
 
+        router.route("/instrument/:id/support_logs/open")
+            .get(function(req, res){
+                require("../../api/instrument/instrument_support_logs_open")(req, res);
+            })
     }
 };
 

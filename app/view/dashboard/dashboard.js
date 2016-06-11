@@ -14,6 +14,6 @@ module.exports = function(req, res) {
 				instruments: instruments
 			});
 			res.send(html);
-		});			
-	});		
-}
+		});
+	});
+};

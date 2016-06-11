@@ -1,31 +1,217 @@
 <html>
 {{> head}}
 <body>
-	{{> navigate}}
-	<script>
-		$(document).ready(function(){
-			$("#create").click(function(){
-				$.ajax({
-					method: "POST",
-					url: "/api/instrument",
-					data: $("#instrument" ).serialize(),
-					success: function() {
-						window.location.assign("/view/instruments");
-					}
-				});
-			});
-		});
-	</script>
-	<form id="instrument" method="post" action="/api/instrument">
-		<label for="serial_number">Serial Number:</label><br/>
-		<input type="text" id="serial_number" name="instrument[serial_number]" value="" placeholder="Serial Number"><br/>
-		<label for="computer_serial_number">Computer S/N:</label><br/>
-		<input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="" placeholder="Computer S/N"><br/>
-		<label for="monitor_serial_number">Monitor S/N:</label><br/>
-		<input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="" placeholder="Monitor S/N"><br/>
-		<label for="ups_serial_number">UPS S/N:</label><br/>
-		<input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="" placeholder="UPS S/N"><br/>
-		<input id="create" type="button" value="Create Instrument">
-	</form>
+{{> navigate}}
+<script>
+    $(document).ready(function () {
+        initInputCallback();
+
+        $("#create").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/instrument",
+                data: $("#instrument").serialize(),
+                success: function () {
+                    window.location.assign("/view/instruments");
+                }
+            });
+        });
+        /*
+         $("div.has-feedback input.form-control").change(function () {
+         var parent = $(this).parent();
+         var spanGluphicon = $(this).siblings("span.glyphicon");
+         var span = $(this).siblings("span.sr-only");
+         if (_.isEmpty($(this).val())) {
+         console.log("text is empty");
+         parent.switchClass("has-success", "has-error");
+         spanGluphicon.switchClass("glyphicon-ok", "glyphicon-remove");
+         span.text("(error)");
+         } else {
+         console.log("text is not empty");
+         parent.switchClass("has-error", "has-success");
+         spanGluphicon.switchClass("glyphicon-remove", "glyphicon-ok");
+         span.text("(success)");
+         }
+         });
+         */
+
+        /*
+         var computerModels = _cmdata.reduce(function (models, computerModel) {
+         return models.push(computerModel.data.name) && models;
+         }, []);
+
+         $("#computer_model").autocomplete({
+         source: computerModels
+         });
+         */
+
+        /*
+         $("div.has-feedback").each(function(i, e) {
+         var text = $(this).children("input").text();
+         if (_.isEmpty(text)) {
+
+         } else {
+
+         }
+         });
+         */
+    })
+    ;
+</script>
+
+<form id="instrument">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="serial_number">Instrument Serial Number</label>
+                    <input type="text" class="form-control" id="serial_number" aria-describedby="serial_number_status"
+                           name="instrument[serial_number]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="computer_serial_number">Computer Serial Number</label>
+                    <input type="text" class="form-control" id="computer_serial_number"
+                           aria-describedby="computer_serial_number_status" name="instrument[computer_serial_number]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="computer_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="computer_serial_number">Computer Model</label>
+                    <input type="text" class="form-control" id="computer_model"
+                           aria-describedby="computer_model_status" name="instrument[computer_model]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="computer_model_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="monitor_serial_number">Monitor Serial Number</label>
+                    <input type="text" class="form-control" id="monitor_serial_number"
+                           aria-describedby="monitor_serial_number_status" name="instrument[monitor_serial_number]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="monitor_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="monitor_model">Monitor Model</label>
+                    <input type="text" class="form-control" id="monitor_model"
+                           aria-describedby="monitor_model_status" name="instrument[monitor_model]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="monitor_model_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="ups_serial_number">UPS Serial Number</label>
+                    <input type="text" class="form-control" id="ups_serial_number"
+                           aria-describedby="ups_serial_number_status" name="instrument[ups_serial_number]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="ups_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="ups_model">UPS Model</label>
+                    <input type="text" class="form-control" id="ups_model"
+                           aria-describedby="ups_model_status" name="instrument[ups_model]">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="ups_model_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+                <input class="btn btn-primary" id="create" type="button" value="Create Instrument">
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>
+
+
+<!--
+<form id="instrument">
+    <input type="hidden" value="{{instrument.id}}"/>
+    <label for="serial_number">Serial Number:</label><br/>
+    <input type="text" id="serial_number" name="instrument[serial_number]" value="{{instrument.serial_number}}" placeholder="Serial Number"><br/>
+    <label for="computer_serial_number">Computer S/N:</label><br/>
+    <input type="text" id="computer_serial_number" name="instrument[computer_serial_number]" value="{{instrument.computer_serial_number}}" placeholder="Computer S/N"><br/>
+    <label for="monitor_serial_number">Monitor S/N:</label><br/>
+    <input type="text" id="monitor_serial_number" name="instrument[monitor_serial_number]" value="{{instrument.monitor_serial_number}}" placeholder="Monitor S/N"><br/>
+    <label for="ups_serial_number">UPS S/N:</label><br/>
+    <input type="text" id="ups_serial_number" name="instrument[ups_serial_number]" value="{{instrument.ups_serial_number}}" placeholder="UPS S/N"><br/>
+
+    <label for="ship_date">Ship Date:</label><br/>
+    <input type="date" id="ship_date" name="instrument[ship_date]" value="{{date_format instrument.ship_date}}" placeholder="2015-12-01"><br/>
+
+    <label for="install_date">Install Date</label><br/>
+    <input type="date" id="install_date" name="instrument[install_date]" value="{{date_format instrument.install_date}}" placeholder="2015-12-01"><br/>
+
+    <label for="customer">Customer</label><br/>
+    <select id="customer" name="instrument[customer_id]">
+        {{#customers}}
+        <option value="{{id}}">{{name}}</option>
+        {{/customers}}
+    </select>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <table id="users" class="display" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#instrument_users}}
+        <tr>
+            <td>{{name}}</td>
+            <td><a class="remove-user" href="" id={{id}}>remove</a></td>
+        </tr>
+        {{/instrument_users}}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        </tfoot>
+    </table>
+    <select id="user">
+        {{#users}}
+        <option value="{{id}}">{{name}}</option>
+        {{/users}}
+    </select>
+    <input id="assign-new-user" type="button" value="Assign New User"/>
+
+    <br/>
+
+    <input id="update" type="button" value="Save Instrument">
+</form>
+-->

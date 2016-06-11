@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> navigate}}
+<script>
+    $(document).ready(function () {
+        initInputCallback();
+
+        $("#create").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/support_log/{{supportLog.id}}",
+                data: $("#support-log").serialize(),
+                success: function () {
+                    window.location.assign("/view/support_logs");
+                }
+            });
+        });
+    });
+</script>
+<form id="support-log">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="reporter">Reporter</label>
+                    <select class="form-control" id="reporter" name="supportLog[reporter_id]"
+                            aria-describedby="reporter_status">
+                        {{#select_options users "name" supportLog.reporter_id}}
+                        {{/select_options}}
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="reporter_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="instrument">Instrument</label>
+                    <select class="form-control" id="instrument" name="supportLog[instrument_id]"
+                            aria-describedby="instrument_status">
+                        {{#select_options instruments "serial_number" supportLog.instrument_id}}
+                        {{/select_options}}
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="instrument_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="name">Issue Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="name_status"
+                               name="supportLog[name]" value="{{supportLog.name}}">
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="name_status" class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <div class="form-group has-feedback">
+                        <label class="control-label" for="comment">Issue Text</label>
+                        <textarea class="form-control" id="comment" aria-describedby="comment_status"
+                                  name="supportLog[comment]" rows="3">{{supportLog.comment}}</textarea>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="comment_status" class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="assignee">Assignee</label>
+                    <select class="form-control" id="assignee" name="supportLog[assignee_id]"
+                            aria-describedby="assignee_status">
+                        {{#select_options users "name" supportLog.assignee_id}}
+                        {{/select_options}}
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="assignee_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <input class="btn btn-primary" id="create" type="button" value="{{#if supportLog}}Update{{else}}Create{{/if}} Support Log">
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

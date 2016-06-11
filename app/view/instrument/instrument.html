@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> navigate}}
+<script>
+    $(document).ready(function () {
+        initInputCallback();
+
+        $("#create").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/instrument/{{instrument.id}}",
+                data: $("#instrument").serialize(),
+                success: function () {
+                    window.location.assign("/view/instruments");
+                }
+            });
+        });
+    });
+</script>
+
+<form id="instrument">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="serial_number">Instrument Serial Number</label>
+                    <input type="text" class="form-control" id="serial_number" aria-describedby="serial_number_status"
+                           name="instrument[serial_number]" value="{{instrument.serial_number}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="computer_serial_number">Computer Serial Number</label>
+                    <input type="text" class="form-control" id="computer_serial_number"
+                           aria-describedby="computer_serial_number_status" name="instrument[computer_serial_number]" value="{{instrument.computer_serial_number}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="computer_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="computer_model">Computer Model</label>
+                    <input type="text" class="form-control" id="computer_model"
+                           aria-describedby="computer_model_status" name="instrument[computer_model]" value="{{instrument.computer_model}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="computer_model_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="monitor_serial_number">Monitor Serial Number</label>
+                    <input type="text" class="form-control" id="monitor_serial_number"
+                           aria-describedby="monitor_serial_number_status" name="instrument[monitor_serial_number]" value="{{instrument.monitor_serial_number}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="monitor_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="monitor_model">Monitor Model</label>
+                    <input type="text" class="form-control" id="monitor_model"
+                           aria-describedby="monitor_model_status" name="instrument[monitor_model]" value="{{instrument.monitor_model}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="monitor_model_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="ups_serial_number">UPS Serial Number</label>
+                    <input type="text" class="form-control" id="ups_serial_number"
+                           aria-describedby="ups_serial_number_status" name="instrument[ups_serial_number]" value="{{instrument.ups_serial_number}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="ups_serial_number_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="ups_model">UPS Model</label>
+                    <input type="text" class="form-control" id="ups_model"
+                           aria-describedby="ups_model_status" name="instrument[ups_model]" value="{{instrument.ups_model}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="ups_model_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
+                <input class="btn btn-primary" id="create" type="button" value="{{#if instrument}}Update{{else}}Create{{/if}} Instrument">
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

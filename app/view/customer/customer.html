@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> navigate}}
+<script>
+    $(document).ready(function () {
+        initInputCallback();
+
+        $("#create").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/customer/{{customer.id}}",
+                data: $("#customer").serialize(),
+                success: function () {
+                    window.location.assign("/view/customers");
+                }
+            });
+        });
+    });
+</script>
+<form id="customer">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="name">Customer Name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="name_status"
+                           name="customer[name]" value="{{customer.name}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="name_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="phone">Phone</label>
+                    <input type="text" class="form-control" id="phone" aria-describedby="phone_status"
+                           name="customer[phone]" value="{{customer.phone}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="phone_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="email">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">@</span>
+                        <input type="text" class="form-control" id="email" aria-describedby="email_status"
+                               name="customer[email]" value="{{customer.email}}">
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="email_status" class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <input class="btn btn-primary" id="create" type="button" value="{{#if customer}}Update{{else}}Create{{/if}} Customer">
+            </div>
+        </div>
+</form>
+</body>
+</html>

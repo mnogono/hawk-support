@@ -1,12 +1,18 @@
 <script>
-    $(document).ready(function(){
-        $("a.like-button").button();
+    $(document).ready(function () {
+        var pathname = window.location.pathname;
+        $("ul.nav.navbar-nav li.active").removeClass("active");
+        $("ul.nav.navbar-nav li[href='" + pathname + "']").addClass("active");
     });
 </script>
-
-<a class="like-button" href="/view/dashboard">Dashboard</a>
-<a class="like-button" href="/view/instruments">Instruments</a>
-<a class="like-button" href="/view/users">Users</a>
-<a class="like-button" href="/view/customers">Customers</a>
-<a class="like-button" href="/view/repair_logs">Repair Logs</a>
-<a class="like-button" href="/view/support_logs">Support Logs</a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li href="/view/dashboard"><a href="/view/dashboard">Dashboard</a></li>
+            <li href="/view/instruments"><a href="/view/instruments">Instruments</a></li>
+            <li href="/view/users"><a href="/view/users">Users</a></li>
+            <li href="/view/customers"><a href="/view/customers">Customers</a></li>
+            <li href="/view/support_logs"><a href="/view/support_logs">Support Logs</a></li>
+        </ul>
+    </div>
+</nav>

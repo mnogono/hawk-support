@@ -17,8 +17,8 @@
 		"jquery": "*",
 		"merge": "*",
 		"dateformat": "*",
-		"underscore": "*"
-		
+		"underscore": "*",
+		"bootstrap": "*"
 	},
 	"license": "MIT",
 	"readby": "no readmy"

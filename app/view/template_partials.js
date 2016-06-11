@@ -3,6 +3,10 @@ var fs = require('fs');
 
 module.exports = function(callback){
 	handlebars.registerHelper("select_options", function(records, property, value){
+        if (!records) {
+            return "";
+        }
+
 		var options = ["<option value=\"NULL\"></option>"];
 		for (var i = 0; i < records.length; ++i) {
 			var option = ["<option value=\"", records[i].id,"\""];
@@ -14,13 +18,13 @@ module.exports = function(callback){
 		}
 		return options.join("");
 	});
-	
+
 	fs.readFile(__dirname + "/navigate.html", {encoding: "utf-8"}, function(err, data){
 		var template = handlebars.compile(data);
 		var html = template();
 		handlebars.registerPartial("navigate", html);
 	});
-	
+
 	fs.readFile(__dirname + "/head.html", {encoding: "utf-8"}, function(err, data) {
 		var template = handlebars.compile(data);
 		var html = template();

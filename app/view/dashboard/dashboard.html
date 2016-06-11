@@ -27,6 +27,7 @@
 			});
 		});
 
+        /*
 		$(".repair-logs-place-holder").each(function() {
 			var id = $(this).attr("uid");
 			if (_.isEmpty(id)) {
@@ -34,13 +35,14 @@
 			}
 
 			$.ajax({
-				url: "/api/instrument/" + id + "/repair_logs",
+				url: "/api/instrument/" + id + "/repair_logs/open",
                 type: "GET",
                 success: function(repairLogs) {
                     $(this).append(repairLogs.length);
                 }.bind($(this))
 			})
 		});
+        */
 
         $(".support-logs-place-holder").each(function() {
             var id = $(this).attr("uid");
@@ -49,7 +51,7 @@
             }
 
             $.ajax({
-                url: "/api/instrument/" + id + "/support_logs",
+                url: "/api/instrument/" + id + "/support_logs/open",
                 type: "GET",
                 success: function(supportLogs) {
                     $(this).append(supportLogs.length);
@@ -68,8 +70,7 @@
 			<th>Customer</th>
 			<th>Ship Date</th>
 			<th>Install Date</th>
-			<th>Warranty Date</th>
-			<th>Repair Logs</th>
+			<th>Warranty End Date</th>
 			<th>Support Logs</th>
 		</tr>
 	</thead>
@@ -80,8 +81,7 @@
 				<td class="customer-place-holder" uid="{{customer_id}}"></td>
 				<td>{{date_format ship_date}}</td>
 				<td>{{date_format install_date}}</td>
-				<td>{{date_format warranty_date}}</td>
-				<td class="repair-logs-place-holder" uid="{{id}}"></td>
+				<td>{{date_format warranty_end_date}}</td>
 				<td class="support-logs-place-holder" uid="{{id}}"></td>
 			</tr>
 		{{/instruments}}
@@ -92,8 +92,7 @@
             <th>Customer</th>
             <th>Ship Date</th>
             <th>Install Date</th>
-            <th>Warranty Date</th>
-            <th>Repair Logs</th>
+            <th>Warranty End Date</th>
             <th>Support Logs</th>
 		</tr>
 	</tfoot>

@@ -6,11 +6,6 @@ module.exports = function(sequelize, DataTypes) {
 	}, {
 		tableName: "computer_model",
 		paranoid: false,
-		underscored: true,
-		classMethods: {
-			associate: function(models) {
-				models.ComputerModel.hasMany(models.Instrument);
-			}
-		}
-	});	
+		underscored: true
+	});
 };

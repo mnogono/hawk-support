@@ -5,7 +5,7 @@
 	<script>
 		$(document).ready(function(){
 			$("#users").DataTable();
-		
+
 			$("#update").click(function(){
 				$.ajax({
 					method: "PUT",
@@ -16,7 +16,7 @@
 					}
 				});
 			});
-			
+
 			$("#assign-new-user").click(function(){
 				$.ajax({
 					method: "POST",
@@ -30,19 +30,19 @@
 					}
 				})
 			});
-			
+
 			$(".remove-user").click(function(){
 				$.ajax({
 					method: "DELETE",
 					url: "/api/user_instrument/"+$(this).attr("id"),
 					success: function() {
 						window.location.assign("/view/instruments");
-					}					
+					}
 				})
 			});
 		});
 	</script>
-	<form id="instrument" method="post" action="/api/instrument">
+	<form id="instrument">
 		<input type="hidden" value="{{instrument.id}}"/>
 		<label for="serial_number">Serial Number:</label><br/>
 		<input type="text" id="serial_number" name="instrument[serial_number]" value="{{instrument.serial_number}}" placeholder="Serial Number"><br/>
@@ -69,7 +69,7 @@
 		<br/>
 		<br/>
 		<br/>
-		
+
 		<table id="users" class="display" cellspacing="0" width="100%">
 			<thead>
 				<tr>
@@ -100,7 +100,7 @@
 		<input id="assign-new-user" type="button" value="Assign New User"/>
 
 		<br/>
-		
+
 		<input id="update" type="button" value="Save Instrument">
 	</form>
 </body>

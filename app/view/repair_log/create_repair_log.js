@@ -19,16 +19,5 @@ module.exports = function(req, res) {
             });
             res.send(html);
         });
-
-        //db.User.findAll()
-        /*
-		db.Instrument.findAll().then(function(instruments){
-			var template = handlebars.compile(data);
-			var html = template({
-				instruments: instruments
-			});
-			res.send(html);
-		});
-		*/
 	});
 };

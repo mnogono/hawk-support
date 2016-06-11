@@ -9,6 +9,9 @@ module.exports = {
             });
 
         router.route("/customer/:id")
+            .post(function (req, res) {
+                require("../../api/customer/edit_customer")(req, res);
+            })
             .delete(function (req, res) {
                 require("../../api/customer/delete_customer")(req, res);
             })
