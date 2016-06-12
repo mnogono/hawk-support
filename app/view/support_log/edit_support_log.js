@@ -19,7 +19,13 @@ module.exports = function(req, res) {
             var html = template({
                 users: values[0],
                 instruments: values[1],
-                supportLog: values[2]
+                supportLog: values[2],
+                status: [
+                    {id: "open", name: "open"},
+                    {id: "close", name: "close"},
+                    {id: "on hold", name: "on hold"},
+                    {id: "in progress", name: "in progress"}
+                ]
             });
             res.send(html);
         });

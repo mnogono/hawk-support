@@ -95,6 +95,49 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="customer">Customer</label>
+                    <select class="form-control" id="customer" name="instrument[customer_id]"
+                            aria-describedby="assignee_status">
+                        {{#select_options customers "name" instrument.customer_id}}
+                        {{/select_options}}
+                    </select>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="customer_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="ship_date">Ship Date</label>
+                    <input type="date" class="form-control" id="ship_date"
+                           aria-describedby="ship_date_status" name="instrument[ship_date]" value="{{date_format instrument.ship_date}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="ship_date_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="install_date">Install Date</label>
+                    <input type="date" class="form-control" id="install_date"
+                           aria-describedby="install_date_status" name="instrument[install_date]" value="{{date_format instrument.install_date}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="install_date_status" class="sr-only"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="install_date">Warranty End Date</label>
+                    <input type="date" class="form-control" id="warranty_end_date"
+                           aria-describedby="warranty_end_date_status" name="instrument[warranty_end_date]" value="{{date_format instrument.warranty_end_date}}">
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="warranty_end_date_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-2">
                 <input class="btn btn-primary" id="create" type="button" value="{{#if instrument}}Update{{else}}Create{{/if}} Instrument">
             </div>
         </div>

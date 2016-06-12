@@ -9,3 +9,7 @@
 #table-customer {
     width: 300px;
 }
+
+.top-buffer {
+    margin-top:20px;
+}

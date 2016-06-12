@@ -1,0 +1,34 @@
+<table id="table-support-logs" class="display">
+    <thead>
+    <tr>
+        <th>Created Date</th>
+        <th>Updater Date</th>
+        <th>Status</th>
+        <th>Reporter</th>
+        <th>Name</th>
+        <th>Comment</th>
+        <th>HAWK Instrument</th>
+        <th>Assignee</th>
+        <th><!--controls--></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#supportLogs}}
+    <tr>
+        <td>{{date_format created_at}}</td>
+        <td>{{date_format updated_at}}</td>
+        <td>{{status}}</td>
+        <td>{{reporter_id}}</td>
+        <td>{{name}}</td>
+        <td>{{comment}}</td>
+        <td><label class="instrument-place-holder" id={{instrument.id}}>-</label></td>
+        <td>{{assignee_id}}</td>
+        <td>
+            <a class="btn btn-default" href="/view/edit_support_log/{{id}}">edit</a>
+            <a class="btn btn-default delete" href="" id={{id}}>delete</a>
+        </td>
+    </tr>
+    {{/supportLogs}}
+    </tbody>
+</table>
+<a class="btn btn-primary" href="/view/create_support_log">Create Support Log</a>

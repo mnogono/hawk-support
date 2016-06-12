@@ -30,4 +30,24 @@ module.exports = function(callback){
 		var html = template();
 		handlebars.registerPartial("head", html);
 	});
+
+    handlebars.registerHelper("record_property", function() {
+        console.log("record property");
+
+        return new Handlebars.SafeString(
+            "button..."
+        );
+
+        /*
+        return "123";
+
+        for (var i = 0; i < records.length; ++i) {
+            if (records[i].id == id) {
+                return records[i][property];
+            }
+        }
+
+        return "";
+        */
+    });
 };

@@ -11,40 +11,40 @@
 <script src="/js/dashboard/table_repair_logs.js"></script>
 <script src="/js/dashboard/table_support_logs.js"></script>
 <script>
-	$(document).ready(function() {
-		$(".customer-place-holder").each(function(i, e){
-			var id = $(this).attr("uid");
-			if (_.isEmpty(id)) {
-				return;
-			}
+    $(document).ready(function () {
+        $(".customer-place-holder").each(function (i, e) {
+            var id = $(this).attr("uid");
+            if (_.isEmpty(id)) {
+                return;
+            }
 
-			$.ajax({
-				url: "/api/customer/" + id,
-				type: "GET",
-				success: function(customer) {
-					$(this).append("<a href=\"/view/edit_customer/"+customer.id+"\">" + customer.name + "</a>");
-				}.bind($(this))
-			});
-		});
+            $.ajax({
+                url: "/api/customer/" + id,
+                type: "GET",
+                success: function (customer) {
+                    $(this).append("<a href=\"/view/edit_customer/" + customer.id + "\">" + customer.name + "</a>");
+                }.bind($(this))
+            });
+        });
 
         /*
-		$(".repair-logs-place-holder").each(function() {
-			var id = $(this).attr("uid");
-			if (_.isEmpty(id)) {
-				return;
-			}
+         $(".repair-logs-place-holder").each(function() {
+         var id = $(this).attr("uid");
+         if (_.isEmpty(id)) {
+         return;
+         }
 
-			$.ajax({
-				url: "/api/instrument/" + id + "/repair_logs/open",
-                type: "GET",
-                success: function(repairLogs) {
-                    $(this).append(repairLogs.length);
-                }.bind($(this))
-			})
-		});
-        */
+         $.ajax({
+         url: "/api/instrument/" + id + "/repair_logs/open",
+         type: "GET",
+         success: function(repairLogs) {
+         $(this).append(repairLogs.length);
+         }.bind($(this))
+         })
+         });
+         */
 
-        $(".support-logs-place-holder").each(function() {
+        $(".support-logs-place-holder").each(function () {
             var id = $(this).attr("uid");
             if (_.isEmpty(id)) {
                 return;
@@ -53,7 +53,7 @@
             $.ajax({
                 url: "/api/instrument/" + id + "/support_logs/open",
                 type: "GET",
-                success: function(supportLogs) {
+                success: function (supportLogs) {
                     $(this).append(supportLogs.length);
                 }.bind($(this))
             })
@@ -61,66 +61,70 @@
 
 
         $("#tabs").tabs();
-	});
+    });
 </script>
-<table id="table-instruments" class="display" cellspacing="0" width="100%">
-	<thead>
-		<tr>
-			<th>Instrument</th>
-			<th>Customer</th>
-			<th>Ship Date</th>
-			<th>Install Date</th>
-			<th>Warranty End Date</th>
-			<th>Support Logs</th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#instruments}}
-			<tr uid="{{id}}">
-				<td><a href="/view/edit_instrument/{{id}}">{{serial_number}}</a></td>
-				<td class="customer-place-holder" uid="{{customer_id}}"></td>
-				<td>{{date_format ship_date}}</td>
-				<td>{{date_format install_date}}</td>
-				<td>{{date_format warranty_end_date}}</td>
-				<td class="support-logs-place-holder" uid="{{id}}"></td>
-			</tr>
-		{{/instruments}}
-	</tbody>
-	<tfoot>
-		<tr>
-            <th>Instrument</th>
-            <th>Customer</th>
-            <th>Ship Date</th>
-            <th>Install Date</th>
-            <th>Warranty End Date</th>
-            <th>Support Logs</th>
-		</tr>
-	</tfoot>
-</table>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="table-instruments" class="display">
+                <caption>Instruments</caption>
+                <thead>
+                <tr>
+                    <th>Instrument</th>
+                    <th>Customer</th>
+                    <th>Ship Date</th>
+                    <th>Install Date</th>
+                    <th>Warranty End Date</th>
+                    <th>Support Logs</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#instruments}}
+                <tr uid="{{id}}">
+                    <td><a href="/view/edit_instrument/{{id}}">{{serial_number}}</a></td>
+                    <td class="customer-place-holder" uid="{{customer_id}}"></td>
+                    <td>{{date_format ship_date}}</td>
+                    <td>{{date_format install_date}}</td>
+                    <td>{{date_format warranty_end_date}}</td>
+                    <td class="support-logs-place-holder" uid="{{id}}"></td>
+                </tr>
+                {{/instruments}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div id="container-table-support-logs"></div>
+        </div>
+    </div>
+</div>
+
+<!--
+
 <div id="tabs">
     <ul>
         <li><a href="#tab-details">Details</a></li>
-        <li><a href="#tab-repair-logs">Repair Logs</a></li>
         <li><a href="#tab-support-logs">Support Logs</a></li>
     </ul>
     <div id="tab-details">
-		<table>
-			<tr>
-				<td>
-					<table id="table-instrument"><caption>Instrument</caption></table>
-				</td>
-				<td>
-					<table id="table-customer"><caption>Customer</caption></table>
-				</td>
-			</tr>
-		</table>
-    </div>
-
-    <div id="tab-repair-logs">
-        <table id="table-repair-logs">
-            <caption>Repair Logs</caption>
+        <table>
+            <tr>
+                <td>
+                    <table id="table-instrument">
+                        <caption>Instrument</caption>
+                    </table>
+                </td>
+                <td>
+                    <table id="table-customer">
+                        <caption>Customer</caption>
+                    </table>
+                </td>
+            </tr>
         </table>
-        <a href="/view/create_repair_log">Create Repair Log</a>
     </div>
 
     <div id="tab-support-logs">
@@ -130,6 +134,8 @@
         <a href="/view/create_support_log">Create Support Log</a>
     </div>
 </div>
+
+-->
 
 </body>
 </html>

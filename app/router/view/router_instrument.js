@@ -13,5 +13,10 @@ module.exports = {
             .get(function (req, res) {
                 require("../../view/instrument/edit_instrument.js")(req, res);
             });
+
+        router.route("/dashboard/instrument/:id/support_logs")
+            .get(function (req, res) {
+                require("../../view/dashboard/instrument_support_logs.js")(req, res);
+            });
     }
 };

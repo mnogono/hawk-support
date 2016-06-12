@@ -3,56 +3,59 @@
 <body>
 {{> navigate}}
 <script>
-	$(document).ready(function() {
-		$("#instruments").DataTable();
-	
-		$(".delete").click(function(e){
-			$.ajax({
-				url: "/api/instrument/"+$(this).attr("id"),
-				method: "DELETE",
-				success: function(result) {
-					alert("delete success");
-					location.reload();
-				}
-			});
-			return false;
-		});
-	});
+    $(document).ready(function () {
+        var table = $("#instruments").dataTable();
+
+        $(".delete").click(function (e) {
+            $.ajax({
+                url: "/api/instrument/" + $(this).attr("id"),
+                method: "DELETE",
+                success: function (result) {
+                    alert("delete success");
+                    location.reload();
+                }
+            });
+            return false;
+        });
+    });
 </script>
-<table id="instruments" class="display" cellspacing="0" width="100%">
-	<thead>
-		<tr>
-			<th>Serial #</th>
-			<th>Computer S/N</th>
-			<th>Monitor S/N</th>
-			<th>UPS S/N</th>
-			<th><!--edit--></th>
-			<th><!--delete--></th>
-		</tr>
-	</thead>
-	<tbody>
-		{{#instruments}}
-			<tr>
-				<td>{{serial_number}}</td>
-				<td>{{computer_serial_number}}</td>
-				<td>{{monitor_serial_number}}</td>
-				<td>{{ups_serial_number}}</td>
-				<td><a class="edit" href="/view/edit_instrument/{{id}}">edit</a></td>
-				<td><a class="delete" href="" id={{id}}>delete</a></td>
-			</tr>
-		{{/instruments}}
-	</tbody>
-	<tfoot>
-		<tr>
-			<th>Serial #</th>
-			<th>Computer S/N</th>
-			<th>Monitor S/N</th>
-			<th>UPS S/N</th>
-			<th><!--edit--></th>
-			<th><!--delete--></th>
-		</tr>
-	</tfoot>
-</table>
-<a href="/view/create_instrument">Create Instrument</a>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table id="instruments" class="display">
+                <thead>
+                <tr>
+                    <th>Serial #</th>
+                    <th>Computer S/N</th>
+                    <th>Monitor S/N</th>
+                    <th>UPS S/N</th>
+                    <th><!--controls--></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#instruments}}
+                <tr>
+                    <td>{{serial_number}}</td>
+                    <td>{{computer_serial_number}}</td>
+                    <td>{{monitor_serial_number}}</td>
+                    <td>{{ups_serial_number}}</td>
+                    <td>
+                        <a class="btn btn-default" href="/view/edit_instrument/{{id}}">edit</a>
+                        <a class="delete btn btn-default" href="" id={{id}}>delete</a>
+                    </td>
+                </tr>
+                {{/instruments}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="/view/create_instrument">Create Instrument</a>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

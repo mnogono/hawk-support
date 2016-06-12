@@ -53,6 +53,22 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="form-group has-feedback">
                     <div class="form-group has-feedback">
+                        <label class="control-label" for="status">Issue Name</label>
+                        <select class="form-control" id="status" name="supportLog[status]"
+                                aria-describedby="status_status">
+                            {{#select_options status "name" supportLog.status}}
+                            {{/select_options}}
+                        </select>
+                        <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                        <span id="status_status" class="sr-only"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <div class="form-group has-feedback">
                         <label class="control-label" for="name">Issue Name</label>
                         <input type="text" class="form-control" id="name" aria-describedby="name_status"
                                name="supportLog[name]" value="{{supportLog.name}}">
