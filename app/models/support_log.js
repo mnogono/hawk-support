@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 				models.SupportLog.belongsTo(models.User, {as: "assignee"});
 				models.SupportLog.belongsTo(models.Instrument);
 				models.SupportLog.belongsTo(models.Customer);
+                models.SupportLog.hasMany(models.SupportLogComment);
 			}
 		}
 	});

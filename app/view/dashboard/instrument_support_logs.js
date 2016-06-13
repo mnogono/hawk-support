@@ -17,11 +17,28 @@ module.exports = function (req, res) {
             var pSupportLogs = instrument.getSupportLogs();
 
             Promise.all([pUsers, pSupportLogs]).then(function (values) {
+                var users = values[0];
+                var supportLogs = values[1];
+
+                for (var i = 0; i < supportLogs.length; ++i) {
+                    supportLogs[i].instrument = instrument.serial_number;
+                    supportLogs[i].reporter = "";
+                    supportLogs[i].assignee = "";
+                    for (var u = 0; u < users.length; ++u) {
+                        if (users[u].id == supportLogs[i].reporter_id) {
+                            supportLogs[i].reporter = users[u].name;
+                        }
+                        if (users[u].id == supportLogs[i].assignee_id) {
+                            supportLogs[i].assignee = users[u].name;
+                        }
+                    }
+                }
+
                 var template = handlebars.compile(data);
                 var html = template({
                     instrument: instrument,
-                    supportLogs: values[1],
-                    users: values[0]
+                    supportLogs: supportLogs,
+                    users: users
                 });
                 res.send(html);
             });

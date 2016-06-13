@@ -14,34 +14,41 @@ module.exports = function(req, res) {
         var pInstruments = db.Instrument.findAll();
         var pSupportLog = db.SupportLog.findById(id);
 
+
         Promise.all([pUsers, pInstruments, pSupportLog]).then(function(values) {
-            var template = handlebars.compile(data);
-            var html = template({
-                users: values[0],
-                instruments: values[1],
-                supportLog: values[2],
-                status: [
-                    {id: "open", name: "open"},
-                    {id: "close", name: "close"},
-                    {id: "on hold", name: "on hold"},
-                    {id: "in progress", name: "in progress"}
-                ]
+            var supportLog = values[2];
+            supportLog.getSupportLogComments().then(function(supportLogComments) {
+                var users = values[0];
+                var instruments = values[1];
+                var supportLog = values[2];
+
+                var template = handlebars.compile(data, {
+                    strict: true,
+                    data: false
+                });
+
+                for (var i = 0; i < supportLogComments.length; ++i) {
+                    for (var u = 0; u < users.length; ++u) {
+                        if (users[u].id == supportLogComments[i].author_id) {
+                            supportLogComments[i].author = users[u].name;
+                        }
+                    }
+                }
+
+                var html = template({
+                    users: users,
+                    instruments: instruments,
+                    supportLog: supportLog,
+                    status: [
+                        {id: "open", name: "open"},
+                        {id: "close", name: "close"},
+                        {id: "on hold", name: "on hold"},
+                        {id: "in progress", name: "in progress"}
+                    ],
+                    supportLogComments: supportLogComments
+                });
+                res.send(html);
             });
-            res.send(html);
         });
-        /*
-		db.Instrument.findAll()
-		.then(function(instruments){
-			var id = parseInt(req.params.id);
-			db.SupportLog.findById(id).then(function(supportLog){
-				var template = handlebars.compile(data);
-				var html = template({
-					supportLog: supportLog,
-					instruments: instruments
-				});
-				res.send(html);
-			});
-		});
-		*/
 	});
 };

@@ -11,11 +11,4 @@ module.exports = function(req, res) {
     }).then(function(supportLogs) {
        res.send(supportLogs);
     });
-    /*
-    db.Instrument.findById(id).then(function(instrument) {
-        instrument.getSupportLogs().then(function(supportLogs){
-            res.send(supportLogs);
-        });
-    });
-    */
 };

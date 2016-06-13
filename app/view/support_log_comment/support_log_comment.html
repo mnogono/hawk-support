@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+{{> head}}
+<body>
+{{> navigate}}
+<script>
+    $(document).ready(function () {
+        initInputCallback();
+
+        $("#create").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/support_log_comment/{{supportLogComment.id}}",
+                data: $("#support-log-comment").serialize(),
+                success: function () {
+                    historyBack();
+                }
+            });
+        });
+    });
+</script>
+<form id="support-log-comment">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-group has-feedback">
+                    <label class="control-label" for="comment">Comment</label>
+                        <textarea class="form-control" id="comment" aria-describedby="comment_status"
+                                  name="supportLogComment[comment]" rows="3">{{supportLogComment.comment}}</textarea>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                    <span id="reporter_status" class="sr-only"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <input class="btn btn-primary" id="create" type="button" value="{{#if supportLogComment}}Update{{else}}Create{{/if}} Comment">
+            </div>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

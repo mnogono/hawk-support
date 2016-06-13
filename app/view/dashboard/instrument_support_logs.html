@@ -1,3 +1,18 @@
+<script>
+    $(document).ready(function() {
+        $(".delete-support-log").click(function() {
+            $.ajax({
+                url: "/api/support_log/" + $(this).attr("id"),
+                type: "DELETE",
+                success: function (result) {
+                    alert("delete success");
+                    location.reload(true);
+                }
+            });
+        });
+    });
+</script>
+
 <table id="table-support-logs" class="display">
     <thead>
     <tr>
@@ -18,14 +33,14 @@
         <td>{{date_format created_at}}</td>
         <td>{{date_format updated_at}}</td>
         <td>{{status}}</td>
-        <td>{{reporter_id}}</td>
+        <td>{{reporter}}</td>
         <td>{{name}}</td>
         <td>{{comment}}</td>
-        <td><label class="instrument-place-holder" id={{instrument.id}}>-</label></td>
-        <td>{{assignee_id}}</td>
+        <td>{{instrument}}</td>
+        <td>{{assignee}}</td>
         <td>
             <a class="btn btn-default" href="/view/edit_support_log/{{id}}">edit</a>
-            <a class="btn btn-default delete" href="" id={{id}}>delete</a>
+            <a class="btn btn-default delete-support-log" id={{id}}>delete</a>
         </td>
     </tr>
     {{/supportLogs}}

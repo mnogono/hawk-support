@@ -26,5 +26,10 @@ module.exports = {
             .get(function (req, res) {
                 require("../../api/support_log/support_logs_open")(req, res);
             });
+
+        router.route("/support_log/:id/support_log_comments")
+            .get(function(req, res) {
+                require("../../api/support_log/support_log_support_log_comments")(req, res);
+            });
     }
 };

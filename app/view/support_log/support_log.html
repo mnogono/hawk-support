@@ -13,16 +13,39 @@
                 url: "/api/support_log/{{supportLog.id}}",
                 data: $("#support-log").serialize(),
                 success: function () {
-                    window.location.assign("/view/support_logs");
+                    window.location.assign("/view/dashboard");
                 }
             });
         });
+
+        $("#create-support-log-comment").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/api/support_log_comment",
+                data: $("#support-log-comment").serialize(),
+                success: function() {
+                    window.location.reload(true);
+                }
+            })
+        });
+
+        $(".delete-support-log-comment").click(function (e) {
+            $.ajax({
+                url: "/api/support_log_comment/" + $(this).attr("id"),
+                method: "DELETE",
+                success: function (result) {
+                    alert("delete success");
+                    location.reload();
+                }
+            });
+            return false;
+        });
     });
 </script>
-<form id="support-log">
-    <div class="container-fluid">
+<div class="container-fluid">
+    <form id="support-log">
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <label class="control-label" for="reporter">Reporter</label>
                     <select class="form-control" id="reporter" name="supportLog[reporter_id]"
@@ -36,7 +59,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <label class="control-label" for="instrument">Instrument</label>
                     <select class="form-control" id="instrument" name="supportLog[instrument_id]"
@@ -50,15 +73,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <div class="form-group has-feedback">
-                        <label class="control-label" for="status">Issue Name</label>
+                        <label class="control-label" for="status">Status</label>
+                        {{#if supportLog}}
                         <select class="form-control" id="status" name="supportLog[status]"
                                 aria-describedby="status_status">
                             {{#select_options status "name" supportLog.status}}
                             {{/select_options}}
                         </select>
+                        {{else}}
+                        <input type="text" class="form-control" id="status" aria-describedby="status_status"
+                               name="supportLog[status]" value="open" readonly>
+                        {{/if}}
                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         <span id="status_status" class="sr-only"></span>
                     </div>
@@ -66,7 +94,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <div class="form-group has-feedback">
                         <label class="control-label" for="name">Issue Name</label>
@@ -79,21 +107,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-6 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <div class="form-group has-feedback">
                         <label class="control-label" for="comment">Issue Text</label>
                         <textarea class="form-control" id="comment" aria-describedby="comment_status"
-                                  name="supportLog[comment]" rows="3">{{supportLog.comment}}</textarea>
+                                  name="supportLog[comment]" rows="5">{{supportLog.comment}}</textarea>
                         <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                         <span id="comment_status" class="sr-only"></span>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+            <div class="col-md-4 col-md-offset-3">
                 <div class="form-group has-feedback">
                     <label class="control-label" for="assignee">Assignee</label>
                     <select class="form-control" id="assignee" name="supportLog[assignee_id]"
@@ -107,11 +134,108 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <input class="btn btn-primary" id="create" type="button" value="{{#if supportLog}}Update{{else}}Create{{/if}} Support Log">
+            <div class="col-md-4 col-md-offset-3">
+                <input class="btn btn-primary" id="create" type="button"
+                       value="{{#if supportLog}}Update{{else}}Create{{/if}} Support Log">
+            </div>
+        </div>
+    </form>
+
+    <!-- display support log comments -->
+    {{#if supportLog}}
+
+    {{#if supportLogComments}}
+
+    <div class="row top-md">
+        <div class="col-md-10 col-md-offset-1">
+            <label>Comments...</label>
+        </div>
+    </div>
+
+    {{#supportLogComments}}
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-1">
+            <div class="form-group">
+                <label>Created</label>
+                <input class="form-control" type="date" value="{{date_format created_at}}" readonly>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Updated</label>
+                <input class="form-control" type="date" value="{{date_format updated_at}}" readonly>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>Author</label>
+                <input type="text" class="form-control" value="{{author}}" readonly>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <p>
+                    <a class="btn btn-default" href="/view/edit_support_log_comment/{{id}}">edit</a>
+                    <a class="btn btn-default delete-support-log-comment" href="" id={{id}}>delete</a>
+                </p>
             </div>
         </div>
     </div>
-</form>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="form-group">
+                <label>Comment</label>
+                <textarea class="form-control" rows="3" readonly>{{comment}}</textarea>
+            </div>
+        </div>
+    </div>
+    {{/supportLogComments}}
+    {{else}}
+    <div class="row top-md">
+        <div class="col-md-8 col-md-offset-1">
+            <label>There are no comments yet... You can be first who make impressive comment here!</label>
+        </div>
+    </div>
+    {{/if}}
+    <div class="row top-md">
+        <div class="col-md-8 col-md-offset-1">
+            <label>Create new comment</label>
+        </div>
+    </div>
+    <form id="support-log-comment">
+        <input type="hidden" name="supportLogComment[support_log_id]" value="{{supportLog.id}}">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-1">
+                <div class="form-group">
+                    <label>Author</label>
+                    <select class="form-control" id="assignee" name="supportLogComment[author_id]">
+                        {{#select_options users "name" 0}}
+                        {{/select_options}}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="form-group">
+                    <label>Comment</label>
+                    <textarea class="form-control" rows="3" name="supportLogComment[comment]"></textarea>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <input id="create-support-log-comment" type="button" class="btn btn-primary" value="Create Comment">
+        </div>
+    </div>
+
+    {{/if}}
+
+</div>
+
 </body>
 </html>

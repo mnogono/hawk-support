@@ -10,9 +10,6 @@ module.exports = function(req, res) {
         var reporterId = req.body.repairLog.reporter;
         var assigneeId = req.body.repairLog.assignee;
 
-        console.log("reporterId: " + reporterId);
-        console.log("assigneeId: " + assigneeId);
-
         var pInstrument = db.Instrument.findById(instrumentId);
         var pReporter = db.User.findById(reporterId);
         var pAssignee = db.User.findById(assigneeId);
