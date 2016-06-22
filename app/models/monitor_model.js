@@ -7,10 +7,5 @@ module.exports = function(sequelize, DataTypes) {
 		tableName: "monitor_model",
 		paranoid: false,
 		underscored: true,
-		classMethods: {
-			associate: function(models) {
-				models.MonitorModel.hasMany(models.Instrument);				
-			}
-		}
-	});	
+	});
 };

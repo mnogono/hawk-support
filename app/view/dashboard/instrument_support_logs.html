@@ -16,11 +16,10 @@
 <table id="table-support-logs" class="display">
     <thead>
     <tr>
-        <th>Created Date</th>
-        <th>Updater Date</th>
+        <th>Last Updated</th>
         <th>Status</th>
         <th>Reporter</th>
-        <th>Name</th>
+        <th>Issue</th>
         <th>Comment</th>
         <th>HAWK Instrument</th>
         <th>Assignee</th>
@@ -30,7 +29,6 @@
     <tbody>
     {{#supportLogs}}
     <tr>
-        <td>{{date_format created_at}}</td>
         <td>{{date_format updated_at}}</td>
         <td>{{status}}</td>
         <td>{{reporter}}</td>

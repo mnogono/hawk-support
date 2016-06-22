@@ -10,7 +10,7 @@ var sequelize = new Sequelize(
     config.username,
     config.password,
     {
-        logging: false
+        logging: true
     }
     //config
 );

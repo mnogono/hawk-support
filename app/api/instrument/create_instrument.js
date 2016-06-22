@@ -2,7 +2,7 @@ var db = require(__dirname + "/../../models");
 
 module.exports = function(req, res) {
 	console.log(req.body.instrument);
-	
+
 	db.Instrument.create({
 		serial_number: req.body.instrument.serial_number,
 		computer_serial_number: req.body.instrument.computer_serial_number,
@@ -11,4 +11,4 @@ module.exports = function(req, res) {
 	}).then(function() {
 		res.send({code: 0});
 	});
-}
+};

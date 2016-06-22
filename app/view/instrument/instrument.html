@@ -17,6 +17,15 @@
                 }
             });
         });
+
+        var _computerModels = [];
+        {{#computerModels}}
+        _computerModels.push("{{name}}");
+        {{/computerModels}}
+
+        $("#computer_model" ).autocomplete({
+            source: _computerModels
+        });
     });
 </script>
 

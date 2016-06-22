@@ -8,13 +8,14 @@ module.exports = function(req, res) {
             return res.send(err.message);
         }
 
-        var pComputerModels = db.Customer.findAll();
+        var pComputerModels = db.ComputerModel.findAll();
+        var pMonitorModels = db.MonitorModel.findAll();
 
-        Promise.all([pComputerModels]).then(function(values) {
-            var cm = values[0];
+        Promise.all([pComputerModels, pMonitorModels]).then(function(values) {
             var template = handlebars.compile(data);
             var html = template({
-                cm: values[0]
+                computerModels: values[0],
+                monitorModels: values[1]
             });
             res.send(html);
         });

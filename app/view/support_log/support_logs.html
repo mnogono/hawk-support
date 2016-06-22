@@ -37,24 +37,26 @@
             <table id="support-logs" class="display">
                 <thead>
                 <tr>
-                    <th>Created Date</th>
-                    <th>Updater Date</th>
+                    <th>Last Updated</th>
                     <th>Status</th>
-                    <th>Name</th>
+                    <th>Reporter</th>
+                    <th>Issue</th>
                     <th>Comment</th>
                     <th>HAWK Instrument</th>
+                    <th>Assignee</th>
                     <th><!--controls--></th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#supportLogs}}
                 <tr>
-                    <td>{{date_format created_at}}</td>
                     <td>{{date_format updated_at}}</td>
                     <td>{{status}}</td>
+                    <td>{{reporter}}</td>
                     <td>{{name}}</td>
                     <td>{{comment}}</td>
                     <td><label class="instrument-place-holder" id={{instrument_id}}>-</label></td>
+                    <td>{{assignee}}</td>
                     <td>
                         <a class="btn btn-default" href="/view/edit_support_log/{{id}}">edit</a>
                         <a class="btn btn-default delete" href="" id={{id}}>delete</a>
